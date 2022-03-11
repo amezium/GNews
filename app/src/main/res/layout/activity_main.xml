@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E5E5E5"
-    tools:context=".presentation.MainActivity">
+    tools:context=".view.MainActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,12 +47,11 @@
         android:id="@+id/recyclerView"
         android:layout_width="409dp"
         android:layout_height="553dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/news_list_item" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -62,8 +61,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         app:itemIconTint="@drawable/botton_now_selector"
-        app:itemTextColor="@drawable/botton_now_selector"
-        app:labelVisibilityMode="unlabeled"
+        app:itemTextColor="@color/orange"
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

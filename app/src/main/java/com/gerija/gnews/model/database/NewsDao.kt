@@ -1,20 +1,19 @@
-package com.gerija.gnews.data.network.database
+package com.gerija.gnews.model.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.gerija.gnews.data.network.model.Articles
-import com.gerija.gnews.data.network.model.JsonContainerDto
+import com.gerija.gnews.model.network.dto.Articles
 
 
 @Dao
 interface NewsDao {
 
-    @Query("SELECT * FROM all_link")
+    @Query("SELECT * FROM all_news")
     fun getTopNews(): LiveData<List<Articles>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDataBase(articles: ArrayList<Articles>)
+    suspend fun insertDataBase(articles: List<Articles>)
 }
