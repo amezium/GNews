@@ -6,7 +6,7 @@ import com.gerija.gnews.model.network.dto.NewsContainerDto
 
 class NewsRepositoryImpl: NewsRepository {
 
-    override suspend fun loadTopNews(): Result<NewsContainerDto> {
+    override suspend fun getTopNewsApi(): Result<NewsContainerDto> {
         return Result.success(ApiFactory.apiService.loadTopNews())
     }
 }

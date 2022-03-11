@@ -4,6 +4,6 @@ import com.gerija.gnews.model.network.dto.NewsContainerDto
 
 interface NewsRepository {
 
-    suspend fun loadTopNews(): Result<NewsContainerDto>
+    suspend fun getTopNewsApi(): Result<NewsContainerDto>
 
 }

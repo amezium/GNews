@@ -22,23 +22,40 @@ import android.content.Intent
 class DescriptionActivity : AppCompatActivity() {
     lateinit var binding: ActivityDescriptionBinding
     private val viewModel: NewsViewModel by viewModels()
+    lateinit var intentArticles: Articles
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = intent.getSerializableExtra("itemContent") as Articles
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        intentArticles = intent.getSerializableExtra("itemContent") as Articles
+
+        getDescriptionNews()
+    }
+
+    /**
+     * Получаю данные с базы данных и интента(определить какая новость)
+     */
+    private fun getDescriptionNews() {
 
         viewModel._getNews.observe(this) {
-            Picasso.get().load(intent.image).into(binding.imContent)
-            binding.tvContent.text = intent.content
-            val textLink = "<a href=>Continuation...</a>"
-            binding.tvLink.text = Html.fromHtml(textLink, null, null)
-            binding.tvLink.setOnClickListener {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("${intent.url}"))
-                startActivity(browserIntent)
-            }
+            Picasso.get().load(intentArticles.image).into(binding.imContent)
+            binding.tvContent.text = intentArticles.content
+            startLink()
         }
+    }
 
+    /**
+     * Устанавливаю ссылку на статью и делаю ее кликабельной с открытием в браузере
+     */
+    private fun startLink(){
+        val textLink = "<a href=>Continuation...</a>"
+        binding.tvLink.text = Html.fromHtml(textLink, null, null)
+
+        binding.tvLink.setOnClickListener {
+
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("${intentArticles.url}"))
+            startActivity(browserIntent)
+        }
     }
 }
