@@ -18,16 +18,20 @@ import java.net.URL
 import java.net.URLDecoder
 import android.text.Spannable
 import android.content.Intent
+import androidx.lifecycle.ViewModelProvider
+import com.gerija.gnews.viewmodel.NewsViewModelFactory
 
 class DescriptionActivity : AppCompatActivity() {
     lateinit var binding: ActivityDescriptionBinding
-    private val viewModel: NewsViewModel by viewModels()
+    lateinit var viewModel: NewsViewModel
+    private val viewModelFactory = NewsViewModelFactory(this)
     lateinit var intentArticles: Articles
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this, viewModelFactory)[NewsViewModel::class.java]
         intentArticles = intent.getSerializableExtra("itemContent") as Articles
 
         getDescriptionNews()

@@ -4,26 +4,30 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gerija.gnews.databinding.ActivityMainBinding
 import com.gerija.gnews.model.database.NewsDatabase
 import com.gerija.gnews.model.network.dto.Articles
 import com.gerija.gnews.viewmodel.NewsViewModel
+import com.gerija.gnews.viewmodel.NewsViewModelFactory
 import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity(), NewsAdapter.Content {
 
-    private val viewModel: NewsViewModel by viewModels()
-    lateinit var binding: ActivityMainBinding
 
+    lateinit var viewModel: NewsViewModel
+    lateinit var binding: ActivityMainBinding
+    private val viewModelFactory : NewsViewModelFactory by lazy { NewsViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this, viewModelFactory)[NewsViewModel::class.java]
         viewModel._getNews.observe(this) {
             val adapter = NewsAdapter(it, this)
             binding.recyclerView.adapter = adapter
